@@ -1,0 +1,17 @@
+<?php
+$myname = "Tarmo Reinväli";
+$fulltimenow = date("d.m.y H:i:s");
+$timeHTML = "<p>Lehe avamise hetkel oli kell <strong> .$fulltimenow.</strong></strong></p>"
+?>
+<!DOCTYPE html>
+<html lang="et">
+<head>
+	<meta charset="utf-8">
+	<title>Veebirakendused ja nende loomine 2020</title>
+</head>
+<body>
+	<h1><?php echo $myname; ?></h1>
+	<p>See leht on valminud õppetöö raames!</p>
+	<?php echo $timeHTML; ?>
+</body>
+</html>
