@@ -1,0 +1,30 @@
+.meter-gauge {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: whiteSmoke;
+    box-shadow: 0 5px 5px -5px #333 inset;
+    width: 550px;
+    height: 25px;
+    display: block;
+}
+
+.meter-gauge > span {
+  height: inherit;  
+  box-shadow: 0 5px 5px -5px #999 inset;
+  background-color: blue;
+  background-image: linear-gradient(
+    90deg, 
+    #8bcf69 5%, 
+    #e6d450 5%,
+    #e6d450 15%,
+    #f28f68 15%,
+    #f28f68 55%,
+    #cf82bf 55%,
+    #cf82bf 95%,
+    #719fd1 95%,
+    #719fd1 100%
+  );
+  background-size: 100% 100%;
+  display: block;
+  text-indent: -9999px;
+}
