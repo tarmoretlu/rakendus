@@ -1,0 +1,1 @@
+CREATE TABLE `tarmoreinvali`.`vr20news` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `user_id` INT(11) NOT NULL , `title` VARCHAR(100) NOT NULL , `content` VARCHAR(1500) NOT NULL , `cteated` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , `deleted` DATETIME NULL , `picture` INT(11) NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
