@@ -26,12 +26,32 @@ function readNews(){
     $response = null;
     //loon andmebaasi ühenduse
     $conn = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUserName"], $GLOBALS["serverPassword"], $GLOBALS["database"]);
-    $stmt = $conn->prepare("SELECT title, content FROM vr20news");
+    $stmt = $conn->prepare("SELECT title, content, cteated FROM vr20news  WHERE deleted IS NULL ORDER BY id DESC");
     echo $conn->error;
-    $stmt->bind_result($TitleFromDB, $ContentFromDB);
+    $stmt->bind_result($TitleFromDB, $ContentFromDB, $CreatedFromDB);
     $stmt->execute();
 while ($stmt->fetch()){
-$response .="<h2>" .$TitleFromDB . "</h2>\n";
+$response .="<h2>" .$TitleFromDB." ".$CreatedFromDB. "</h2>\n";
+$response .="<p>" .$ContentFromDB . "</p>\n";
+if ($response == null){
+    $response = "<p>Kahjuks uudised puuduvad</p>\n";
+}
+}
+    $stmt->close();
+    $conn->close();
+    return $response;
+}
+
+function readLatestNews(){
+    $response = null;
+    //loon andmebaasi ühenduse
+    $conn = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUserName"], $GLOBALS["serverPassword"], $GLOBALS["database"]);
+    $stmt = $conn->prepare("SELECT title, content, cteated FROM vr20news WHERE deleted IS NULL ORDER BY id DESC LIMIT 1");
+    echo $conn->error;
+    $stmt->bind_result($TitleFromDB, $ContentFromDB, $CreatedFromDB);
+    $stmt->execute();
+while ($stmt->fetch()){
+$response .="<h2>" .$TitleFromDB." ".$CreatedFromDB. "</h2>\n";
 $response .="<p>" .$ContentFromDB . "</p>\n";
 if ($response == null){
     $response = "<p>Kahjuks uudised puuduvad</p>\n";

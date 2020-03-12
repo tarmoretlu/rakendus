@@ -35,12 +35,13 @@ if (empty($newsError)){
 
 $response = saveNews($newsTitle, $newsContent);
 if ($response == 1) {
-	$newsError = "Salvestame andmebaasi";
+	$newsError = "Uudis salvestatud andmebaasi:";
 } else {
 	$newsError = "Salvestame ebaõnnestus";
 }
 }
 }
+$newsHTML = readLatestNews();
 ?>
 <!DOCTYPE html>
 <html lang="et">
@@ -53,18 +54,17 @@ if ($response == 1) {
 	<h1>Uudise lisamine</h1>
 	<p>See leht on valminud õppetöö raames!</p>
 <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-<labe>Uudise pealkiri</label>
+<labe>Uudise pealkiri</label><br>
 <input type="text" name="newsTitle" placeholder="Uudise pealkiri" value="<?php echo $newsTitle?>"><br>
-<labe>Uudise sisu</label>
+<labe>Uudise sisu</label><br>
 <textarea name="newsContent" placeholder="Uudis" rows="5" cols="40">
 <?php echo $newsContent?>
 </textarea><br>
 <br>
-<input type="submit" name="newsBtn" value="Salvesta uudis">
+<input type="submit" name="newsBtn" value="Salvesta uudis"><br>
 <span><?php echo $newsError?></span>
 </form>
-<?php
 
-?>
+<div><?php echo $newsHTML; ?></div>
 </body>
 </html>

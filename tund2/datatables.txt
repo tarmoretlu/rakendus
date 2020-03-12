@@ -1,1 +1,10 @@
 CREATE TABLE `tarmoreinvali`.`vr20news` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `user_id` INT(11) NOT NULL , `title` VARCHAR(100) NOT NULL , `content` VARCHAR(1500) NOT NULL , `cteated` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , `deleted` DATETIME NULL , `picture` INT(11) NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
+
+
+
+CREATE TABLE `tarmoreinvali`.`vr20_studylog` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `course` INT(5) NOT NULL , `activity` INT(3) NOT NULL , `time` DECIMAL(5) NOT NULL , `day` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
+CREATE TABLE `tarmoreinvali`.`vr20_studylog_course` ( `id` INT(11) NOT NULL, `course_name` VARCHAR(25) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
+CREATE TABLE `tarmoreinvali`.`vr20_studylog_activity` ( `id` INT(11) NOT NULL, `course_activity` VARCHAR(25) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
