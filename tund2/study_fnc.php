@@ -1,5 +1,5 @@
 <?php
-header ('Content-type: text/html; charset=utf-8');
+
 
 function saveLog($course, $activity, $time){
 $response = null;
@@ -24,6 +24,7 @@ $response = 1;
 $stmt->close();
 $conn->close();
 return $response;
+
 }
 function showLog(){
     $response = null;
@@ -43,12 +44,12 @@ function showLog(){
     $stmt->bind_result($activityNameFromDB, $timeFromDB, $CourseNameFromDB);
     $stmt->execute();
     $response .="<table border=1><tr><td>Õppeaine</td><td>Tegevus</td><td>Aeg(h)</td></tr>\n";
-while ($stmt->fetch()){
-$response .="<tr><td>" .$CourseNameFromDB." </td><td> ".$activityNameFromDB. "</td><td>" .$timeFromDB. "</td></tr>\n";
-if ($response == null){
-    $response = "<p>Kahjuks logi puudub</p>\n";
-}
-}
+    while ($stmt->fetch()){
+        $response .="<tr><td>" .$CourseNameFromDB." </td><td> ".$activityNameFromDB. "</td><td>" .$timeFromDB. "</td></tr>\n";
+        if ($response == null){
+            $response = "<p>Kahjuks logi puudub</p>\n";
+            }
+    }
     $response .="</table>\n";
     $stmt->close();
     $conn->close();
@@ -83,6 +84,13 @@ if ($response == null){
     return $response;
 }
 function selectCourse(){
+    if (isset($_POST["course"])) {
+    $coursePost = $_POST["course"];
+    } else {
+        $coursePost = 0;
+
+    }
+    //$course=0;
     $response = null;
     $conn = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUserName"], $GLOBALS["serverPassword"], $GLOBALS["database"]);
     $conn->set_charset('utf8');
@@ -90,23 +98,41 @@ function selectCourse(){
     echo $conn->error;
     $stmt->bind_result($courseIdFromDB, $CourseNameFromDB);
     $stmt->execute();
+    $selectionAttribute='';
     while ($stmt->fetch()){
-        $response .= "<option value=" . $courseIdFromDB. ">" . $CourseNameFromDB . "</option>\n";
+        if ($coursePost==$courseIdFromDB) {  
+            $response .= "<option selected value=" . $courseIdFromDB. ">" . $CourseNameFromDB . "</option>\n";  
+        } else {
+            $response .= "<option value=" . $courseIdFromDB. ">" . $CourseNameFromDB . "</option>\n";  
+
+        } 
     }
+    
     $stmt->close();
     $conn->close();
     return $response;
+    
 }
 function selectActivity(){
+    if (isset($_POST["activity"])) {
+        $actPost = $_POST["activity"];
+        } else {
+            $actPost = 0; 
+        }
     $response = null;
+   
     $conn = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUserName"], $GLOBALS["serverPassword"], $GLOBALS["database"]);
     $conn->set_charset('utf8');
     $stmt = $conn->prepare("SELECT id, course_activity FROM vr20_studylog_activity");
     echo $conn->error;
-    $stmt->bind_result($courseIdFromDB, $CourseActivityFromDB);
+    $stmt->bind_result($activityIdFromDB, $CourseActivityFromDB);
     $stmt->execute();
     while ($stmt->fetch()){
-        $response .= "<option value=" . $courseIdFromDB. ">" . $CourseActivityFromDB . "</option>\n";
+        if ($actPost==$activityIdFromDB) { 
+        $response .= "<option selected value=" . $activityIdFromDB. ">" . $CourseActivityFromDB . "</option>\n";
+        } else {
+        $response .= "<option value=" . $activityIdFromDB. ">" . $CourseActivityFromDB . "</option>\n";
+        }
     }
     $stmt->close();
     $conn->close();
